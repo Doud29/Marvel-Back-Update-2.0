@@ -12,6 +12,10 @@ app.use(cors());
 const charactersRoutes = require("./routes/characters");
 app.use(charactersRoutes);
 
+//-----------------// route Character
+const characterRoutes = require("./routes/character");
+app.use(characterRoutes);
+
 //-----------------// Dans le cas d'une route inexistante
 app.all("*", function (req, res) {
   res.json({ message: "Page Not Found" });
