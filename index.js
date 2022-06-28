@@ -16,6 +16,10 @@ app.use(charactersRoutes);
 const characterRoutes = require("./routes/character");
 app.use(characterRoutes);
 
+//-----------------// route allcomics
+const ComicsRoutes = require("./routes/comics");
+app.use(ComicsRoutes);
+
 //-----------------// Dans le cas d'une route inexistante
 app.all("*", function (req, res) {
   res.json({ message: "Page Not Found" });
