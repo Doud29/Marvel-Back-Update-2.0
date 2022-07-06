@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------//
-//------------------------// Signup //--------------------------------//
+//------------------------// Signup //-------------------------------//
 //-------------------------------------------------------------------//
 
 //-----------------// Packages
@@ -16,15 +16,16 @@ router.post("/signup", async (req, res) => {
   const { username, email, password } = req.fields;
 
   try {
-    const IsUserexisting = await User.findOne({ email: email });
-
-    const avatarToUpload = req.files.avatar.path;
-    const result = await cloudinary.uploader.upload(avatarToUpload);
-    // return res.json(result);
+    const IsUserexisting = await User.find({ email: email });
+    // const avatarToUpload = req.files.avatar.path;
+    // const result = await cloudinary.uploader.upload(avatarToUpload);
+    // // return res.json(result);
+    console.log(IsUserexisting);
 
     if (IsUserexisting !== null) {
-      return res.json("cet email exitse déjà, vous devez le changer");
+      res.json("cet email exitse déjà, vous devez le changer");
     } else {
+      console.log("utilisateur");
       const salt = uid2(64);
       const hash = SHA256(password + salt).toString(encBase64);
       const token = uid2(64);
@@ -36,6 +37,7 @@ router.post("/signup", async (req, res) => {
         salt: salt,
         avatar: result.secure_url,
       });
+      console.log(newUser);
       await newUser.save();
       return res.json({
         username: username,
