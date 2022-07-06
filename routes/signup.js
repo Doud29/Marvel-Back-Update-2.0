@@ -12,15 +12,15 @@ const User = require("../Models/User");
 
 router.post("/signup", async (req, res) => {
   console.log(req.fields);
-  console.log("la route signup a bien été sollicité");
-  const { username, email, password } = req.fields;
+  // console.log("la route signup a bien été sollicité");
 
   try {
-    const IsUserexisting = await User.find({ email: email });
+    const { username, email, password } = req.fields;
+    const IsUserexisting = await User.findOne({ email: email });
     // const avatarToUpload = req.files.avatar.path;
     // const result = await cloudinary.uploader.upload(avatarToUpload);
     // // return res.json(result);
-    console.log(IsUserexisting);
+    console.log(IsUserexisting, "base de donnée");
 
     if (IsUserexisting !== null) {
       res.json("cet email exitse déjà, vous devez le changer");
@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
         token: token,
         hash: hash,
         salt: salt,
-        avatar: result.secure_url,
+        // avatar: result.secure_url,
       });
       console.log(newUser);
       await newUser.save();
@@ -43,7 +43,7 @@ router.post("/signup", async (req, res) => {
         username: username,
         email: email,
         token: token,
-        avatar: result.secure_url,
+        // avatar: result.secure_url,
       });
     }
   } catch (error) {

@@ -22,13 +22,13 @@ app.use(characterRoutes);
 const ComicsRoutes = require("./routes/comics");
 app.use(ComicsRoutes);
 
-//-----------------// route login
-// const loginRoutes = require("./routes/login");
-// app.use(loginRoutes);
-
 //-----------------// route signup
 const signupRoutes = require("./routes/signup");
 app.use(signupRoutes);
+
+//-----------------// route login
+const loginRoutes = require("./routes/login");
+app.use(loginRoutes);
 
 //-----------------// Dans le cas d'une route inexistante
 app.all("*", function (req, res) {
